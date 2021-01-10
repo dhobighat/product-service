@@ -1,0 +1,20 @@
+language: java
+jdk: oraclejdk11
+
+before_install:
+  - chmod +x mvnw
+services:
+  - docker
+addons:
+  sonarcloud:
+    organization: "sandipan-sonar"
+    token: $SONAR_TOKEN
+
+script:
+  - ./mvnw clean compile jib:build sonar:sonar -Pcoverage verify
+#deploy:
+#  provider: script
+#  script: bash deploy.sh
+#  on:
+#branch: master
+

@@ -1,0 +1,22 @@
+spring:
+  application:
+  name: product-service
+  profiles:
+    active:
+    - dev
+
+
+---
+spring:
+    profiles: dev
+server:
+  port: 8000
+
+---
+
+spring:
+  profiles: production
+server:
+  port: 8000
+
+

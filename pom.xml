@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.4.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.sandipan.work.product</groupId>
+	<artifactId>product-service</artifactId>
+	<version>1.0.0</version>
+	<name>product-service</name>
+	<description>Product Dashboard</description>
+
+	<properties>
+		<java.version>8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<sonar.projectKey>product-service</sonar.projectKey>
+		<sonar.organization>sandipan-sonar</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!--Test Dependency : START -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Test Dependency : END -->
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.5</version>
+				<executions>
+					<execution>
+						<id>jacoco-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-site</id>
+						<phase>d</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>2.7.0</version>
+				<configuration>
+					<from>
+						<image>openjdk:8-jdk-alpine</image>
+						<auth>
+							<username>${DOCKER_HUB_REPO_NAME}</username>
+							<password>${DOCKER_HUB_REPO_KEY}</password>
+						</auth>
+					</from>
+					<to>
+						<image>${DOCKER_HUB_REPO_NAME}/${project.artifactId}</image>
+						<auth>
+							<username>${DOCKER_HUB_REPO_NAME}</username>
+							<password>${DOCKER_HUB_REPO_KEY}</password>
+						</auth>
+						<tags>
+							<tag>latest</tag>
+							<tag>${TRAVIS_BUILD_NUMBER}</tag>
+						</tags>
+					</to>
+					<container>
+						<ports>
+							<port>8000</port>
+						</ports>
+					</container>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
