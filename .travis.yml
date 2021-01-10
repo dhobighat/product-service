@@ -12,9 +12,9 @@ addons:
 
 script:
   - ./mvnw clean compile jib:build sonar:sonar -Pcoverage verify
-#deploy:
-#  provider: script
-#  script: bash deploy.sh
-#  on:
-#branch: master
+deploy:
+  provider: script
+  script: bash deploy.sh
+  on:
+branch: master
 
