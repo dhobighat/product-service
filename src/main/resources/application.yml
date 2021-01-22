@@ -8,10 +8,12 @@ spring:
 
 ---
 spring:
-    profiles: dev
+  profiles: dev
 server:
   port: 8000
-
+auth0:
+  issuer: https://dhobighat-dev.us.auth0.com/
+  apiAudience: https://product.service/api
 ---
 
 spring:
